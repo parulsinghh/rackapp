@@ -1,5 +1,5 @@
+# Basic Rack app
 require 'rack'
-require 'json'
 
 class Hello
   def self.call(env)
