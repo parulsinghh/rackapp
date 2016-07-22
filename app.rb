@@ -1,17 +1,16 @@
 # Basic Rack app
 require 'rack'
 
-class Hello
-  def self.call(env)
-    res = Rack::Response.new
-    req = Rack::Request.new(env)
-    params = req.params
+Hello = Proc.new do |env|
+  res = Rack::Response.new
+  req = Rack::Request.new(env)
+  params = req.params
 
-    res["Content-Type"] = "text/html"
-    res.write("Hello #{params['name'] ? params['name'] : 'No name'}")
-
-    res.finish
-  end
+  [
+    '200', 
+    {'Content-Type' => 'text/html'}, 
+    ["Hello #{params['name'] ? params['name'] : 'No name'}"]
+  ]
 end
 
 Rack::Handler::WEBrick.run Hello
